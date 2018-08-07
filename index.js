@@ -1,8 +1,9 @@
 // get config
 function getParameter(parameters, name) {
-  return parameters.find(p => {
-    p.Name === name;
+  const param = parameters.find(p => {
+    return p.Name === name;
   });
+  return param.Value;
 }
 
 const SSM = require('aws-sdk/clients/ssm');
@@ -24,8 +25,6 @@ ssm.getParameters({
     database : 'gathergamers',
     charset  : 'utf8'
   };
-
-  console.log('connection settings', connection)
   // get db connection
   const knex = require('knex')({
     client: 'pg',
