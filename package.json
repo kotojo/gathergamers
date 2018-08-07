@@ -1,0 +1,17 @@
+{
+  "name": "gathergamers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kotojo/gathergamers.git",
+  "author": "<bruce.kellerman@gatherhere.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.287.0",
+    "bookshelf": "^0.13.3",
+    "knex": "0.13",
+    "pg": "^7.4.3"
+  }
+}
