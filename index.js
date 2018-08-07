@@ -15,17 +15,21 @@ ssm.getParameters({
     console.log('error', err)
     return;
   }
+
+  const connection = {
+    host: getParameter(data.Parameters, 'GG_RDS_HOST'),
+    port: getParameter(data.Parameters, 'GG_RDS_PORT'),
+    user: getParameter(data.Parameters, 'GG_RDS_USER'),
+    password: getParameter(data.Parameters, 'GG_RDS_PASS'),
+    database : 'gathergamers',
+    charset  : 'utf8'
+  };
+
+  console.log('connection settings', connection)
   // get db connection
   const knex = require('knex')({
     client: 'pg',
-    connection: {
-      host: getParameter(data.Parameters, 'GG_RDS_HOST'),
-      port: getParameter(data.Parameters, 'GG_RDS_PORT'),
-      user: getParameter(data.Parameters, 'GG_RDS_USER'),
-      password: getParameter(data.Parameters, 'GG_RDS_PASS'),
-      database : 'gathergamers',
-      charset  : 'utf8'
-    }
+    connection
   });
 
   const bookshelf = require('bookshelf')(knex);
@@ -34,10 +38,10 @@ ssm.getParameters({
     tableName: 'foo'
   });
 
-  Foo.fetchAll().then(((a, b) => {
+  Foo.fetchAll().then((a, b) => {
     console.log("thing a", a)
     console.log("thing b", b)
-  }))
+  }, err => console.log(err));
 });
 
 // start server
